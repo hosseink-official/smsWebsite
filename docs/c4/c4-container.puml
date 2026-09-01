@@ -1,0 +1,45 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User")
+
+System_Boundary(s1, "smsWebsite") {
+
+    Container(api, "API Gateway", "Go", "Routes requests")
+
+    Container(auth, "Auth Service", "Go", "Authentication & Authorization")
+
+    Container(catalog, "Catalog Service", "Go", "Products & Offers API")
+
+    Container(offer, "Offer Engine", "Go", "Synchronize providers and build offers")
+
+    Container(order, "Order Service", "Go", "Execute selected offers")
+
+    Container(wallet, "Wallet Service", "Go", "Wallet & Payments")
+
+    Container(sms, "SMS Service", "Go", "Receive SMS messages")
+
+    Container(plugin, "Provider Plugin Layer", "Go", "Provider adapters")
+}
+
+System_Ext(sim5, "5SIM")
+System_Ext(smsman, "SMS-Man")
+System_Ext(onlinesim, "OnlineSIM")
+
+Rel(user, api, "Uses")
+
+Rel(api, auth, "Authenticate")
+Rel(api, catalog, "Browse Products & Offers")
+Rel(api, order, "Create Order")
+Rel(api, wallet, "Wallet Operations")
+Rel(api, sms, "Get SMS")
+
+Rel(offer, plugin, "Sync Provider Data")
+
+Rel(plugin, sim5, "Provider API")
+Rel(plugin, smsman, "Provider API")
+Rel(plugin, onlinesim, "Provider API")
+
+Rel(order, plugin, "Execute Selected Offer")
+
+@enduml

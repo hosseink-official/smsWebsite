@@ -1,0 +1,17 @@
+@startuml
+package "Order Service" {
+  [Order API]
+  [Order Processor]
+  [State Machine]
+  [Event Publisher]
+}
+
+database "Order DB"
+
+queue "Event Bus"
+
+[Order API] --> [Order Processor]
+[Order Processor] --> [State Machine]
+[Order Processor] --> "Order DB"
+[Order Processor] --> "Event Bus"
+@enduml

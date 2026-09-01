@@ -1,0 +1,12 @@
+@startuml
+[*] --> CREATED
+
+CREATED --> RESERVED : wallet reserved
+RESERVED --> PROCESSING : provider selected
+PROCESSING --> COMPLETED : sms received
+PROCESSING --> FAILED : provider error
+FAILED --> REFUNDED : wallet refund
+
+COMPLETED --> [*]
+REFUNDED --> [*]
+@enduml

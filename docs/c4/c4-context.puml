@@ -1,0 +1,43 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(user, "User", "Purchases SMS activations")
+
+System(
+    smsWebsite,
+    "smsWebsite",
+    "SMS Activation Marketplace Platform"
+)
+
+System_Ext(sim5, "5SIM", "SMS Activation Provider")
+
+System_Ext(smsman, "SMS-Man", "SMS Activation Provider")
+
+System_Ext(onlinesim, "OnlineSIM", "SMS Activation Provider")
+
+Rel(
+    user,
+    smsWebsite,
+    "Browse products, compare offers and create orders"
+)
+
+Rel(
+    smsWebsite,
+    sim5,
+    "Synchronize offers and execute activations"
+)
+
+Rel(
+    smsWebsite,
+    smsman,
+    "Synchronize offers and execute activations"
+)
+
+Rel(
+    smsWebsite,
+    onlinesim,
+    "Synchronize offers and execute activations"
+)
+
+@enduml

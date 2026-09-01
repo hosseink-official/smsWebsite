@@ -1,0 +1,27 @@
+components:
+  schemas:
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    Offer:
+      type: object
+      description: "User-selectable offer (no provider exposure)"
+      properties:
+        id:
+          type: string
+        product_id:
+          type: string
+        price:
+          type: number
+        label:
+          type: string
+        stock:
+          type: integer
+        quality_score:
+          type: number

@@ -1,0 +1,34 @@
+@startuml
+
+actor Scheduler
+
+participant OfferEngine
+participant ProviderPlugin
+participant CatalogDB
+participant EventBus
+
+Scheduler -> OfferEngine : Start Sync Job
+
+OfferEngine -> ProviderPlugin : Fetch Provider Data
+
+alt Provider Available
+    ProviderPlugin --> OfferEngine : Products + Prices + Stock
+
+    OfferEngine -> OfferEngine : Normalize Data
+    OfferEngine -> OfferEngine : Map Marketplace Products
+    OfferEngine -> OfferEngine : Generate Offers
+    OfferEngine -> OfferEngine : Apply Pricing Rules
+    OfferEngine -> OfferEngine : Calculate Quality Score
+
+    OfferEngine -> CatalogDB : Update Products
+    OfferEngine -> CatalogDB : Update Offers
+
+    OfferEngine -> EventBus : Publish CatalogUpdated
+
+else Provider Failure
+    ProviderPlugin --> OfferEngine : Error
+
+    OfferEngine -> EventBus : Publish ProviderSyncFailed
+end
+
+@enduml

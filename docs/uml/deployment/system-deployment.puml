@@ -1,0 +1,39 @@
+@startuml
+node "User" {
+  [Web App]
+}
+
+node "API Layer" {
+  [API Gateway]
+}
+
+node "Backend Cluster" {
+  [Order Service]
+  [Catalog Service]
+  [Wallet Service]
+  [Aggregator Service]
+}
+
+node "Infra" {
+  database "PostgreSQL"
+  queue "RabbitMQ"
+  cloud "Redis"
+}
+
+node "External" {
+  [SMS Providers]
+}
+
+[Web App] --> [API Gateway]
+[API Gateway] --> [Order Service]
+[API Gateway] --> [Catalog Service]
+
+[Order Service] --> PostgreSQL
+[Catalog Service] --> PostgreSQL
+[Wallet Service] --> PostgreSQL
+
+[Order Service] --> RabbitMQ
+[Catalog Service] --> RabbitMQ
+
+[Aggregator Service] --> [SMS Providers]
+@enduml

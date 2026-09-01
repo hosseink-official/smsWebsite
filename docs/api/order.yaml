@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Order API
+  version: 1.0.0
+
+paths:
+  /orders:
+    post:
+      summary: Create order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+      responses:
+        "200":
+          description: Order created

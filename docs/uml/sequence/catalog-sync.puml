@@ -1,0 +1,13 @@
+participant Scheduler
+participant Aggregator
+participant ProviderPlugin
+participant CatalogDB
+participant EventBus
+
+Scheduler -> Aggregator: Start Sync
+Aggregator -> ProviderPlugin: Fetch Products
+ProviderPlugin --> Aggregator: Products List
+
+Aggregator -> Aggregator: Normalize + Merge
+Aggregator -> CatalogDB: Save Catalog
+Aggregator -> EventBus: CatalogUpdated Event

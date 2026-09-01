@@ -1,0 +1,23 @@
+@startuml
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(catalog, "Catalog Service") {
+
+    Component(api, "Catalog API", "Gin HTTP API")
+
+    Component(cache, "Redis Cache", "Caching Layer")
+
+    Component(repo, "Catalog Repository", "Products + Offers")
+
+}
+
+Component(offerEngine, "Offer Engine", "Internal Service")
+
+Rel(api, cache, "Read Catalog")
+
+Rel(cache, repo, "Cache Miss")
+
+Rel(offerEngine, repo, "Update Products & Offers")
+
+@enduml

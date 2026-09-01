@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant Gateway
+participant CatalogService
+participant OfferEngine
+participant OrderService
+participant WalletService
+participant ProviderPlugin
+participant EventBus
+
+== Fetch Offers ==
+
+User -> Gateway: Get Offers
+Gateway -> CatalogService: Request Offers
+
+CatalogService -> OfferEngine: Build Offers
+OfferEngine --> CatalogService: Offers List
+
+CatalogService --> Gateway: Offers List
+Gateway --> User: Show Offers
+
+== User Selection ==
+
+User -> Gateway: Select Offer
+
+== Order Execution ==
+
+Gateway -> OrderService: Create Order (offer_id)
+
+OrderService -> WalletService: Reserve Balance
+WalletService --> OrderService: Reserved
+
+OrderService -> ProviderPlugin: Execute Offer
+ProviderPlugin --> OrderService: Result
+
+OrderService -> EventBus: Publish OfferExecuted
+@enduml

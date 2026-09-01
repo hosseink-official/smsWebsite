@@ -1,0 +1,9 @@
+@startuml
+[*] --> ACTIVE
+
+ACTIVE --> LOCKED : reserve funds
+LOCKED --> DEBITED : order success
+LOCKED --> RELEASED : order failed
+DEBITED --> [*]
+RELEASED --> ACTIVE
+@enduml

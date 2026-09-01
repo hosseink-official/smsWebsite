@@ -1,0 +1,11 @@
+@startuml
+participant ProviderAPI
+participant ProviderPlugin
+participant EventBus
+participant OrderService
+
+ProviderAPI -> ProviderPlugin: Incoming SMS
+ProviderPlugin -> EventBus: SMSReceived Event
+EventBus -> OrderService: Consume Event
+OrderService -> OrderService: Update Activation Status
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+package "Catalog Service" {
+  [Aggregator Engine]
+  [Normalizer]
+  [Pricing Engine]
+}
+
+database "Catalog DB"
+queue "Event Bus"
+
+[Aggregator Engine] --> [Normalizer]
+[Normalizer] --> [Pricing Engine]
+[Pricing Engine] --> "Catalog DB"
+[Pricing Engine] --> "Event Bus"
+@enduml
